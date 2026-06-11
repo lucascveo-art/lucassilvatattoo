@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucas Silva Tattoo | Central de Links Premium</title>
+    <!-- Google Fonts: Poppins (Interface) & Oswald (Títulos de Impacto e Atitude) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --premium-blue: #00d2ff;
+            --premium-blue-hover: #00a3ff;
+            --premium-blue-glow: rgba(0, 210, 255, 0.35);
+            --bg-dark: #050508;
+            --glass-bg: rgba(6, 7, 12, 0.75);
+            --glass-bg-hover: rgba(12, 14, 24, 0.88);
+            --glass-border: rgba(0, 210, 255, 0.15);
+            --glass-border-glow: rgba(0, 210, 255, 0.28);
+            --text-primary: #FFFFFF;
+            --text-secondary: #9CA3AF;
+            --font-display: 'Oswald', sans-serif;
+            --font-sans: 'Poppins', sans-serif;
+        }
+
+        /* Reset & Estilos Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- SISTEMA DE PRELOADER DE LUXO --- */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-dark);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .preloader-spinner-wrapper {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .preloader-spinner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid rgba(0, 210, 255, 0.1);
+            border-top-color: var(--premium-blue);
+            border-bottom-color: var(--premium-blue);
+            border-radius: 50%;
+            animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            box-shadow: 0 0 15px var(--premium-blue-glow);
+        }
+
+        .preloader-icon {
+            font-size: 26px;
+            color: var(--premium-blue);
+            animation: pulse-icon 1.5s ease-in-out infinite;
+            filter: drop-shadow(0 0 8px var(--premium-blue-glow));
+        }
+
+        .preloader-text {
+            font-family: var(--font-display);
+            font-size: 15px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--premium-blue);
+            animation: pulse-text 1.5s ease-in-out infinite;
+        }
+
+        /* Background de Fundo Personalizado do Estúdio */
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('https://i.imgur.com/vuPbLds.jpeg');
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+            filter: brightness(0.25) contrast(1.15) saturate(0.85);
+            transform: scale(1.1);
+            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), filter 1.5s ease;
+        }
+
+        body.loaded .bg-overlay {
+            transform: scale(1);
+        }
+
+        /* Gradiente Radial de Luz Azul */
+        .gradient-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 50% 25%, rgba(0, 210, 255, 0.1) 0%, rgba(5, 5, 8, 0.98) 90%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Container Limitador Mobile */
+        .card-container {
+            width: 100%;
+            max-width: 480px;
+            padding: 32px 18px;
+            opacity: 0;
+            transform: translateY(30px) scale(0.96);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body.loaded .card-container {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Lâmina de Vidro Fosco Dark Blue */
+        .main-glass-shell {
+            background: var(--glass-bg);
+            backdrop-filter: blur(0px) saturate(100%);
+            -webkit-backdrop-filter: blur(0px) saturate(100%);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 32px 24px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95),
+                        inset 0 1px 0px rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 26px;
+            position: relative;
+            transition: backdrop-filter 1.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+        }
+
+        body.loaded .main-glass-shell {
+            backdrop-filter: blur(30px) saturate(150%);
+            -webkit-backdrop-filter: blur(30px) saturate(150%);
+        }
+
+        .main-glass-shell:hover {
+            border-color: var(--glass-border-glow);
+        }
+
+        /* Seção Perfil Integrada */
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 210, 255, 0.1);
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .avatar-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--premium-blue);
+            box-shadow: 0 0 25px var(--premium-blue-glow);
+            padding: 4px;
+            background: var(--bg-dark);
+        }
+
+        .status-badge {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            background: #00d2ff;
+            color: #000000;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            border: 2px solid #050508;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 2px 10px rgba(0, 210, 255, 0.3);
+        }
+
+        .status-badge span {
+            width: 5px;
+            height: 5px;
+            background-color: #000000;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+
+        .studio-title {
+            font-family: var(--font-display);
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
+        }
+
+        .studio-slogan {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--premium-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+        }
+
+        .studio-bio {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 95%;
+            font-weight: 300;
+        }
+
+        /* --- NOVA GRADE DE BOTÕES HARMONIZADOS (1 no topo + 2 lado a lado) --- */
+        .action-grid-custom {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        /* Botão Superior Completo (Estilo Linha) */
+        .action-btn-wide {
+            grid-column: span 2;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 210, 255, 0.1);
+            border-radius: 18px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        /* Botões Inferiores Divididos (Estilo Card) */
+        .action-btn-half {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 210, 255, 0.1);
+            border-radius: 18px;
+            padding: 22px 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn-left-content {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-icon-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(0, 210, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            transition: all 0.25s ease;
+        }
+
+        .btn-icon-circle i {
+            font-size: 18px;
+            color: var(--premium-blue);
+            transition: transform 0.3s ease;
+        }
+
+        .btn-text-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .btn-text-content-centered {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 4px;
+        }
+
+        .btn-title {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #ffffff;
+        }
+
+        .btn-subtitle {
+            font-size: 10px;
+            color: var(--text-secondary);
+            font-weight: 300;
+            margin-top: 1px;
+        }
+
+        .btn-arrow-right {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.2);
+            transition: transform 0.25s ease, color 0.25s ease;
+        }
+
+        /* Efeitos Hover nos Botões */
+        .action-btn-wide:hover, .action-btn-half:hover {
+            background: rgba(0, 210, 255, 0.04);
+            border-color: rgba(0, 210, 255, 0.35);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 210, 255, 0.12);
+        }
+
+        .action-btn-wide:hover .btn-icon-circle, .action-btn-half:hover .btn-icon-circle {
+            background: var(--premium-blue);
+            border-color: var(--premium-blue);
+            box-shadow: 0 0 15px var(--premium-blue-glow);
+        }
+
+        .action-btn-wide:hover .btn-icon-circle i, .action-btn-half:hover .btn-icon-circle i {
+            color: #000000;
+            transform: scale(1.1);
+        }
+
+        .action-btn-wide:hover .btn-arrow-right {
+            transform: translateX(3px);
+            color: var(--premium-blue);
+        }
+
+        /* Botão Principal: SALVAR NA AGENDA */
+        .cta-btn-wrapper {
+            width: 100%;
+        }
+
+        .primary-cta {
+            width: 100%;
+            background: var(--premium-blue);
+            border: none;
+            border-radius: 14px;
+            padding: 16px 20px;
+            color: #000000;
+            font-family: var(--font-sans);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 4px 20px var(--premium-blue-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .primary-cta i {
+            font-size: 14px;
+        }
+
+        .primary-cta:hover {
+            background: var(--premium-blue-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 210, 255, 0.5);
+        }
+
+        .primary-cta:active {
+            transform: translateY(1px);
+        }
+
+        /* ---- MÓDULO SPA DE AGENDAMENTO (PRETO NEON DEEP) ---- */
+        .booking-card {
+            background: rgba(0, 0, 0, 0.5); 
+            border: 1px solid rgba(0, 210, 255, 0.1);
+            border-radius: 24px;
+            padding: 24px 20px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .booking-header {
+            margin-bottom: 22px;
+            border-bottom: 1px solid rgba(0, 210, 255, 0.1);
+            padding-bottom: 14px;
+        }
+
+        .booking-step-badge {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--premium-blue);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .booking-title {
+            font-family: var(--font-sans);
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Barra de Progresso Real */
+        .progress-bar-container {
+            margin-top: 12px;
+        }
+
+        .progress-bar-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .progress-bar-track {
+            height: 5px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, rgba(0, 210, 255, 0.6) 0%, var(--premium-blue) 100%);
+            width: 33%;
+            transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 0 10px var(--premium-blue-glow);
+        }
+
+        /* Formulário e Inputs do SPA */
+        .step-view {
+            transition: opacity 0.3s ease;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .spa-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .spa-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: none;
+            border-bottom: 2px solid rgba(0, 210, 255, 0.3);
+            padding: 14px 4px;
+            color: white;
+            font-family: var(--font-sans);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .spa-input:focus {
+            border-color: var(--premium-blue);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .error-msg {
+            color: #EF4444;
+            font-size: 10px;
+            font-weight: 600;
+            margin-top: 6px;
+            display: block;
+        }
+
+        /* Opções do SPA */
+        .select-card-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .select-option-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px 18px;
+            border-radius: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .select-option-card:hover {
+            border-color: rgba(0, 210, 255, 0.3);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .select-option-card.selected {
+            background: rgba(0, 210, 255, 0.08);
+            border-color: var(--premium-blue);
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.15);
+        }
+
+        .select-option-text {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+        }
+
+        .chk-indicator-circle {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            color: var(--premium-blue);
+            transition: all 0.25s ease;
+        }
+
+        .select-option-card.selected .chk-indicator-circle {
+            background: var(--premium-blue);
+            border-color: var(--premium-blue);
+            color: #000000;
+            font-weight: bold;
+        }
+
+        /* Cartões de Período Grid 2 Colunas */
+        .period-option-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .period-selection-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 18px 12px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.25s ease;
+        }
+
+        .period-selection-card:hover {
+            border-color: rgba(0, 210, 255, 0.3);
+        }
+
+        .period-selection-card.selected {
+            background: rgba(0, 210, 255, 0.08);
+            border-color: var(--premium-blue);
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.15);
+        }
+
+        .period-card-emoji {
+            font-size: 20px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .period-card-name {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+
+        .period-card-time {
+            font-size: 9px;
+            color: var(--text-secondary);
+        }
+
+        /* Recibo de Confirmação */
+        .spa-receipt {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 210, 255, 0.15);
+            border-radius: 18px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .receipt-entry {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding-bottom: 10px;
+        }
+
+        .receipt-entry:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .receipt-lbl {
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .receipt-val {
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .receipt-val.highlight {
+            color: var(--premium-blue);
+        }
+
+        /* Controles de Navegação do SPA */
+        .spa-navigation-controls {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 18px;
+        }
+
+        .spa-back-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            border-radius: 12px;
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+        }
+
+        .spa-back-btn:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+        }
+
+        .spa-next-btn {
+            flex: 1;
+            background: var(--premium-blue);
+            color: #000000;
+            border: none;
+            border-radius: 12px;
+            height: 48px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 4px 15px var(--premium-blue-glow);
+        }
+
+        .spa-next-btn:hover {
+            background: var(--premium-blue-hover);
+            transform: translateY(-1px);
+        }
+
+        /* Rodapé Redes Sociais */
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            margin-top: 10px;
+            border-top: 1px solid rgba(0, 210, 255, 0.1);
+            padding-top: 20px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-link {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .social-link:hover {
+            color: #000000;
+            background: var(--premium-blue);
+            border-color: var(--premium-blue);
+            transform: translateY(-4px) scale(1.08);
+            box-shadow: 0 4px 15px var(--premium-blue-glow);
+        }
+
+        .copyright {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.25);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        /* Toast Popup Notificação */
+        .toast-container {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(5, 5, 8, 0.95);
+            border: 1px solid var(--premium-blue);
+            box-shadow: 0 12px 35px var(--premium-blue-glow);
+            border-radius: 14px;
+            padding: 14px 22px;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+            width: max-content;
+            max-width: 90%;
+        }
+
+        .toast-container.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast-icon {
+            color: var(--premium-blue);
+            font-size: 15px;
+        }
+
+        .toast-text {
+            font-size: 12px;
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        /* --- ANIMAÇÕES CORE --- */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse-icon {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.12); opacity: 1; }
+        }
+
+        @keyframes pulse-text {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        /* Scrollbar Neon Minimalista */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--premium-blue);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PRELOADER DE LUXO COM CAVEIRA NEON -->
+    <div id="preloader">
+        <div class="preloader-spinner-wrapper">
+            <div class="preloader-spinner"></div>
+            <!-- Ícone de Caveira Artística representando Lucas Silva Tattoo -->
+            <i class="fa-solid fa-skull preloader-icon"></i>
+        </div>
+        <div class="preloader-text">Lucas Silva Tattoo</div>
+    </div>
+
+    <!-- Overlays de Fundo de Alta Classe -->
+    <div class="bg-overlay"></div>
+    <div class="gradient-overlay"></div>
+
+    <!-- Container Principal do Bio Link -->
+    <div class="card-container" id="cardContainer">
+        
+        <main class="main-glass-shell">
+            
+            <!-- Bloco do Perfil -->
+            <header class="profile-section">
+                <div class="avatar-wrapper">
+                    <!-- Avatar Artístico Oficial do Lucas Silva -->
+                    <img src="https://i.imgur.com/x5EwLMM.jpeg" alt="Lucas Silva Tattoo" class="avatar-img">
+                    <div class="status-badge">
+                        <span></span>Agenda Aberta
+                    </div>
+                </div>
+                <h1 class="studio-title">Lucas Silva</h1>
+                <h2 class="studio-slogan">Realismo & Coberturas • Curitiba</h2>
+                <p class="studio-bio">🥋 Faixa preta em Realismo e Coberturas.<br>🎨 15 anos transformando ideias em arte na pele.<br>💬 Sua nova tattoo começa aqui. 👇</p>
+            </header>
+
+            <!-- TRÊS BOTÕES DE AÇÃO HARMONIZADOS (Estrutura conforme imagem) -->
+            <section class="action-grid-custom">
+                
+                <!-- Botão 1 (Superior Largo): WhatsApp Oficial -->
+                <a href="https://api.whatsapp.com/send?phone=5541995239129&text=Olá%20Lucas!%20Gostaria%20de%20tirar%20dúvidas%20e%20fazer%20um%20orçamento." target="_blank" class="action-btn-wide" aria-label="Orçamento via WhatsApp">
+                    <div class="btn-left-content">
+                        <div class="btn-icon-circle">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <div class="btn-text-content">
+                            <span class="btn-title">Fale Conosco</span>
+                            <span class="btn-subtitle">Chamar no WhatsApp Oficial</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right btn-arrow-right"></i>
+                </a>
+                
+                <!-- Botão 2 (Metade Esquerda): Instagram -->
+                <a href="https://www.instagram.com/lucassilva.tattoo/" target="_blank" class="action-btn-half" aria-label="Instagram Oficial">
+                    <div class="btn-icon-circle">
+                        <i class="fa-brands fa-instagram"></i>
+                    </div>
+                    <div class="btn-text-content-centered">
+                        <span class="btn-title">Instagram</span>
+                        <span class="btn-subtitle">@lucassilva.tattoo</span>
+                    </div>
+                </a>
+
+                <!-- Botão 3 (Metade Direita): Localização do Estúdio -->
+                <a href="https://maps.app.goo.gl/n873WWcbLsXVQpCUA" target="_blank" class="action-btn-half" aria-label="Estúdio Curitiba">
+                    <div class="btn-icon-circle">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div class="btn-text-content-centered">
+                        <span class="btn-title">Nosso Estúdio</span>
+                        <span class="btn-subtitle">Curitiba, PR</span>
+                    </div>
+                </a>
+
+            </section>
+
+            <!-- Botão Secundário Premium: SALVAR NA AGENDA -->
+            <div class="cta-btn-wrapper">
+                <button class="primary-cta" onclick="saveContactToPhone()">
+                    <i class="fa-solid fa-address-book"></i>
+                    Salvar Contato na Agenda
+                </button>
+            </div>
+
+            <!-- ==========================================================
+                 MÓDULO SPA INTEGRADO: CONSULTA DE ORÇAMENTO PREMIUM
+                 ========================================================== -->
+            <section id="bookingSection" class="booking-card">
+                
+                <!-- Cabeçalho Dinâmico -->
+                <div class="booking-header">
+                    <span class="booking-step-badge" id="progress-step-text">Etapa 1 de 3</span>
+                    <h3 class="booking-title" id="booking-stage-title">Simular Projeto</h3>
+                    
+                    <!-- Barra de Progresso Real -->
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-info">
+                            <span>Progresso</span>
+                            <span id="progress-percentage-text">33%</span>
+                        </div>
+                        <div class="progress-bar-track">
+                            <div id="progress-indicator-fill" class="progress-bar-fill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Etapa 1: Nome do Lead -->
+                <div id="step-1-view" class="step-view">
+                    <label class="spa-label" for="client-name">Para planejarmos seu projeto exclusivo, digite seu <span style="color: var(--premium-blue)">nome completo</span>:</label>
+                    <input 
+                        type="text" 
+                        id="client-name" 
+                        class="spa-input" 
+                        placeholder="Ex: Gustavo Alencar" 
+                        oninput="hideError('name-error')"
+                    >
+                    <span id="name-error" class="error-msg hidden">Digite seu nome para avançar.</span>
+                </div>
+
+                <!-- Etapa 2: Seleção do Estilo de Tattoo -->
+                <div id="step-2-view" class="step-view hidden">
+                    <label class="spa-label">Escolha a <span style="color: var(--premium-blue)">especialidade artística</span> ideal para sua ideia:</label>
+                    
+                    <div class="select-card-grid">
+                        <!-- Opção 1 -->
+                        <div class="select-option-card" onclick="selectStyleOption('Tatuagem Realista (Preto e Cinza)', this)">
+                            <span class="select-option-text">Tatuagem Realista</span>
+                            <span class="chk-indicator-circle" id="chk-circle-1"></span>
+                        </div>
+                        <!-- Opção 2 -->
+                        <div class="select-option-card" onclick="selectStyleOption('Cobertura de Tattoo (Cover-up)', this)">
+                            <span class="select-option-text">Cobertura (Cover-up)</span>
+                            <span class="chk-indicator-circle" id="chk-circle-2"></span>
+                        </div>
+                        <!-- Opção 3 -->
+                        <div class="select-option-card" onclick="selectStyleOption('Fechamento Completo (Braço/Perna/Costas)', this)">
+                            <span class="select-option-text">Fechamento Completo</span>
+                            <span class="chk-indicator-circle" id="chk-circle-3"></span>
+                        </div>
+                        <!-- Opção 4 -->
+                        <div class="select-option-card" onclick="selectStyleOption('Projeto Exclusivo / Outros Estilos', this)">
+                            <span class="select-option-text">Outro Projeto Exclusivo</span>
+                            <span class="chk-indicator-circle" id="chk-circle-4"></span>
+                        </div>
+                    </div>
+                    <span id="style-error" class="error-msg hidden">Escolha uma opção de serviço.</span>
+                </div>
+
+                <!-- Etapa 3: Escolha do Período -->
+                <div id="step-3-view" class="step-view hidden">
+                    <label class="spa-label">Qual o melhor <span style="color: var(--premium-blue)">período do dia</span> para você fazer suas sessões?</label>
+                    
+                    <div class="period-option-grid">
+                        <div class="period-selection-card" onclick="selectPeriodOption('Manhã', this)">
+                            <span class="period-card-emoji">🌅</span>
+                            <span class="period-card-name">Manhã</span>
+                            <span class="period-card-time">Das 09h às 13h</span>
+                        </div>
+                        <div class="period-selection-card" onclick="selectPeriodOption('Tarde', this)">
+                            <span class="period-card-emoji">🌆</span>
+                            <span class="period-card-name">Tarde</span>
+                            <span class="period-card-time">Das 14h às 19h</span>
+                        </div>
+                    </div>
+                    <span id="period-error" class="error-msg hidden" style="text-align: center; display: block; margin-top: 12px;">Escolha um período preferencial.</span>
+                </div>
+
+                <!-- Etapa 4: Resumo Final -->
+                <div id="step-4-view" class="step-view hidden">
+                    <label class="spa-label" style="text-align: center; margin-bottom: 14px;">Confirmar dados do seu <span style="color: var(--premium-blue)">orçamento</span>:</label>
+                    
+                    <div class="spa-receipt">
+                        <div class="receipt-entry">
+                            <span class="receipt-lbl">CLIENTE:</span>
+                            <span id="receipt-name" class="receipt-val">-</span>
+                        </div>
+                        <div class="receipt-entry">
+                            <span class="receipt-lbl">ESTILO:</span>
+                            <span id="receipt-style" class="receipt-val highlight">-</span>
+                        </div>
+                        <div class="receipt-entry">
+                            <span class="receipt-lbl">PERÍODO:</span>
+                            <span id="receipt-period" class="receipt-val">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Etapa Sucesso Completo -->
+                <div id="step-success-view" class="step-view hidden" style="text-align: center; padding: 12px 0;">
+                    <div style="width: 54px; height: 54px; background: rgba(0, 210, 255, 0.1); border: 1px solid var(--premium-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: var(--premium-blue); font-size: 22px; animation: pulse 2s infinite;">
+                        ✓
+                    </div>
+                    <h4 style="font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Ficha Criada!</h4>
+                    <p style="font-size: 11px; color: var(--text-secondary); line-height: 1.6; max-width: 90%; margin: 0 auto 20px;">
+                        As especificações do seu projeto foram enviadas ao WhatsApp do Lucas para analisar referências e prazos.
+                    </p>
+                    <button onclick="resetSpaBooking()" style="background: transparent; border: none; color: var(--premium-blue); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer;">
+                        Novo Orçamento
+                    </button>
+                </div>
+
+                <!-- Controles de Navegação -->
+                <div id="spa-controls" class="spa-navigation-controls">
+                    <button type="button" id="spa-back-btn" class="spa-back-btn hidden" onclick="prevSpaStep()">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <button type="button" id="spa-next-btn" class="spa-next-btn" onclick="nextSpaStep()">
+                        Continuar
+                    </button>
+                </div>
+
+            </section>
+
+            <!-- Rodapé -->
+            <footer class="footer-section">
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/lucassilva.tattoo/" target="_blank" class="social-link" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+                <p class="copyright">© 2026 Lucas Silva Tattoo • Curitiba / PR</p>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- Toast de Notificações Customizadas -->
+    <div class="toast-container" id="toast">
+        <i class="fa-solid fa-circle-check toast-icon"></i>
+        <span class="toast-text" id="toastText">Ação realizada com sucesso!</span>
+    </div>
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+        // CONFIGURAÇÕES DO WHATSAPP DE LUCAS SILVA
+        const WHATSAPP_NUMERO = "5541995239129";
+        const LINK_MAPA = "https://maps.app.goo.gl/n873WWcbLsXVQpCUA";
+        
+        // --- PRELOADER INTELIGENTE ---
+        window.addEventListener('DOMContentLoaded', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                preloader.style.pointerEvents = 'none';
+                document.body.classList.add('loaded');
+                setTimeout(() => {
+                    preloader.remove();
+                }, 600);
+            }, 1000); 
+        });
+
+        // --- GENERATOR DE CONTATO (vCard) ---
+        function saveContactToPhone() {
+            showToast("Gerando vCard exclusivo...");
+            
+            const vcardData = [
+                "BEGIN:VCARD",
+                "VERSION:3.0",
+                "FN:Lucas Silva Tattoo 💀",
+                "ORG:Lucas Silva Tattoo Estúdio",
+                "TITLE:Tatuador Especialista em Realismo",
+                `TEL;TYPE=WORK,CELL:+${WHATSAPP_NUMERO}`,
+                "URL:https://www.instagram.com/lucassilva.tattoo/",
+                "NOTE:Faixa Preta em Realismo & Coberturas - Curitiba",
+                "END:VCARD"
+            ].join("\n");
+
+            setTimeout(() => {
+                const blob = new Blob([vcardData], { type: "text/vcard;charset=utf-8" });
+                const url = URL.createObjectURL(blob);
+                const downloadLink = document.createElement('a');
+                downloadLink.download = "Lucas_Silva_Tattoo.vcf";
+                downloadLink.href = url;
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+                
+                showToast("Contato preparado! Salve no seu smartphone.");
+            }, 1000);
+        }
+
+        // --- CONTROLE MÓDULO SPA ---
+        const dadosAgendamento = {
+            step: 1,
+            name: '',
+            procedure: '',
+            period: ''
+        };
+
+        function resetSpaBooking() {
+            dadosAgendamento.step = 1;
+            dadosAgendamento.name = '';
+            dadosAgendamento.procedure = '';
+            dadosAgendamento.period = '';
+
+            document.getElementById('client-name').value = '';
+            
+            document.querySelectorAll('.select-option-card').forEach((card, idx) => {
+                card.classList.remove('selected');
+                document.getElementById(`chk-circle-${idx+1}`).innerHTML = '';
+            });
+
+            document.querySelectorAll('.period-selection-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            hideError('name-error');
+            hideError('style-error');
+            hideError('period-error');
+
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`step-${i}-view`).classList.add('hidden');
+            }
+            document.getElementById('step-success-view').classList.add('hidden');
+            document.getElementById('step-1-view').classList.remove('hidden');
+            document.getElementById('spa-controls').classList.remove('hidden');
+
+            updateSpaProgressUI();
+        }
+
+        function hideError(elementId) {
+            document.getElementById(elementId).classList.add('hidden');
+        }
+
+        function selectStyleOption(styleName, elementCard) {
+            dadosAgendamento.procedure = styleName;
+            hideError('style-error');
+
+            document.querySelectorAll('.select-option-card').forEach((card, idx) => {
+                const checkStatus = card === elementCard;
+                if (checkStatus) {
+                    card.classList.add('selected');
+                    document.getElementById(`chk-circle-${idx+1}`).innerHTML = '✓';
+                } else {
+                    card.classList.remove('selected');
+                    document.getElementById(`chk-circle-${idx+1}`).innerHTML = '';
+                }
+            });
+
+            setTimeout(() => {
+                if (dadosAgendamento.step === 2) {
+                    nextSpaStep();
+                }
+            }, 300);
+        }
+
+        function selectPeriodOption(periodName, elementCard) {
+            dadosAgendamento.period = periodName;
+            hideError('period-error');
+
+            document.querySelectorAll('.period-selection-card').forEach(card => {
+                if (card === elementCard) {
+                    card.classList.add('selected');
+                } else {
+                    card.classList.remove('selected');
+                }
+            });
+
+            setTimeout(() => {
+                if (dadosAgendamento.step === 3) {
+                    nextSpaStep();
+                }
+            }, 300);
+        }
+
+        function validateSpaStep() {
+            if (dadosAgendamento.step === 1) {
+                const nameValue = document.getElementById('client-name').value.trim();
+                if (nameValue.length < 3) {
+                    document.getElementById('name-error').classList.remove('hidden');
+                    return false;
+                }
+                dadosAgendamento.name = nameValue;
+                return true;
+            }
+
+            if (dadosAgendamento.step === 2) {
+                if (!dadosAgendamento.procedure) {
+                    document.getElementById('style-error').classList.remove('hidden');
+                    return false;
+                }
+                return true;
+            }
+
+            if (dadosAgendamento.step === 3) {
+                if (!dadosAgendamento.period) {
+                    document.getElementById('period-error').classList.remove('hidden');
+                    return false;
+                }
+                return true;
+            }
+
+            return true;
+        }
+
+        function nextSpaStep() {
+            if (!validateSpaStep()) return;
+
+            const step = dadosAgendamento.step;
+
+            if (step === 4) {
+                submitSpaToWhatsApp();
+                return;
+            }
+
+            document.getElementById(`step-${step}-view`).classList.add('hidden');
+            document.getElementById(`step-${step + 1}-view`).classList.remove('hidden');
+
+            dadosAgendamento.step += 1;
+            updateSpaProgressUI();
+        }
+
+        function prevSpaStep() {
+            const step = dadosAgendamento.step;
+            if (step <= 1) return;
+
+            document.getElementById(`step-${step}-view`).classList.add('hidden');
+            document.getElementById(`step-${step - 1}-view`).classList.remove('hidden');
+
+            dadosAgendamento.step -= 1;
+            updateSpaProgressUI();
+        }
+
+        function updateSpaProgressUI() {
+            const step = dadosAgendamento.step;
+            const percentageMap = { 1: 33, 2: 66, 3: 100, 4: 100 };
+            
+            document.getElementById('progress-step-text').textContent = step === 4 ? "Confirmação" : `Etapa ${step} de 3`;
+            document.getElementById('progress-percentage-text').textContent = `${percentageMap[step]}%`;
+            document.getElementById('progress-indicator-fill').style.width = `${percentageMap[step]}%`;
+
+            const titlesMap = {
+                1: "Identificação",
+                2: "Estilo Preferido",
+                3: "Turno Preferencial",
+                4: "Resumo do Projeto"
+            };
+            document.getElementById('booking-stage-title').textContent = titlesMap[step];
+
+            const backBtn = document.getElementById('spa-back-btn');
+            const nextBtn = document.getElementById('spa-next-btn');
+
+            if (step > 1) {
+                backBtn.classList.remove('hidden');
+            } else {
+                backBtn.classList.add('hidden');
+            }
+
+            if (step === 4) {
+                nextBtn.textContent = "Enviar Ideia de Projeto";
+                
+                document.getElementById('receipt-name').textContent = dadosAgendamento.name;
+                document.getElementById('receipt-style').textContent = dadosAgendamento.procedure;
+                document.getElementById('receipt-period').textContent = dadosAgendamento.period;
+            } else {
+                nextBtn.textContent = "Continuar";
+            }
+        }
+
+        function submitSpaToWhatsApp() {
+            const messageText = `💀 *LUCAS SILVA TATTOO • SIMULAÇÃO DE PROJETO* \n\n• *Cliente:* ${dadosAgendamento.name}\n• *Estilo Desejado:* ${dadosAgendamento.procedure}\n• *Período Preferido:* ${dadosAgendamento.period}\n\n---\n_Enviado de forma inteligente pela central de links._`;
+            const encodedText = encodeURIComponent(messageText);
+            const redirectUrl = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodedText}`;
+
+            window.open(redirectUrl, '_blank');
+
+            document.getElementById('step-4-view').classList.add('hidden');
+            document.getElementById('step-success-view').classList.remove('hidden');
+            document.getElementById('spa-controls').classList.add('hidden');
+        }
+
+        // --- TOAST NOTIFICATIONS ---
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toastText');
+            
+            toastText.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
